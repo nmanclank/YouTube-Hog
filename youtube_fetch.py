@@ -1,7 +1,11 @@
 from googleapiclient.discovery import build
 import query_builder as qb
 import logging
+import db_ops as db
+import cfg
 
+# Logging Def Settings
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def authenticate_youtube(api_key):
     """Auth for YouTube data api"""
@@ -9,17 +13,16 @@ def authenticate_youtube(api_key):
 
 def search_videos(youtube, published_before, max_results=50):
     """Search for videos published before a specific date."""
-
     search_query = qb.get_query()
-
-    # Decide if publish before gets pushed or not
+    if cfg.USE_DATABASE == 'True':
+        db.process_json_data()
+    # Decide if publish_before attr gets pushed or not
     include_pub_date = qb.get_random_int(fortype="pub_date_chance")
     if include_pub_date > 100:
         try:
-            print(search_query)
             request = youtube.search().list(
                 part="id,snippet",
-                q=search_query,  # Empty query to search broadly
+                q=search_query,
                 type="video",
                 publishedBefore=published_before,
                 maxResults=max_results
@@ -31,7 +34,6 @@ def search_videos(youtube, published_before, max_results=50):
             return []
     else:
         try:
-            print(search_query)
             request = youtube.search().list(
                 part="id,snippet",
                 q=search_query,

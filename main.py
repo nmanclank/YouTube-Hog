@@ -1,4 +1,3 @@
-
 import time
 from datetime import datetime, timedelta, timezone
 import logging
@@ -9,9 +8,6 @@ import youtube_fetch as ytf
 import cfg
 
 google_cloud_key = cfg.GOOGLE_CLOUD_API
-
-
-
 
 # Logging Def Settings
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -24,24 +20,19 @@ def randomize_date_range():
 
 def main():
     google_cloud_key = cfg.GOOGLE_CLOUD_API
-    # Randomized view count limits
-    def get_random_max_views():
-        if random.randint(1, 10000) > 8926:
-            return random.randint(55000, 100000)
-        return 50000
 
     # Initialize YouTube API client
     youtube = ytf.authenticate_youtube(google_cloud_key)
-
     # Endless loop for continuous search
     while True:
+
+
         # Randomize the published date range for randomness
         PAST_DATE = randomize_date_range()
         logging.info(f"Searching for videos published before {PAST_DATE}...")
 
-        videos = ytf.search_videos(youtube, published_before=PAST_DATE)
         # Search for videos older than the randomized date
-
+        videos = ytf.search_videos(youtube, published_before=PAST_DATE)
         if not videos:
             logging.info("No videos found. Retrying...")
             time.sleep(10)

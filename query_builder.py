@@ -1,12 +1,11 @@
 import logging
 import requests
-import os
-from dotenv import load_dotenv
 import random
 import cfg
 
-randorg_key = os.getenv("random_org_key") # API key in the .env file for Random.org
-load_dotenv()
+# Logging Def Settings
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 def get_random_int(fortype="randint"):
     fortype = fortype.lower()
 
@@ -163,7 +162,7 @@ def get_formed_search():
 
 def get_random_string():
     """ This function uses Random.org api to generate random strings for the search query.  """
-    random_org_key = cfg.RANDOM_ORG_KEY
+    random_org_key = cfg.RANDOM_ORG_KEY #Random.org API Key - Check .env file if you have any issues
     url = f"https://api.random.org/json-rpc/4/invoke"
     body = {
         "jsonrpc": "2.0",
@@ -188,8 +187,8 @@ def get_random_string():
         else:
             logging.error("Error:", data["error"])
     else:
-        print("Error:", response.status_code)
-        print(response.text)
+        logging.error("Error - Response Code:", response.status_code)
+        logging.error("Message -:", response.text)
 
 def get_query():
     """ Build a query based on a random number based decision. """
