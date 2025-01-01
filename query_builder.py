@@ -9,9 +9,10 @@ randorg_key = os.getenv("random_org_key") # API key in the .env file for Random.
 load_dotenv()
 def get_random_int(fortype="randint"):
     fortype = fortype.lower()
+
     if fortype == "randint":
         url = "https://random.org/integers/?num=1&min=1&max=100000&col=1&base=10&format=plain&rnd=new"
-    if fortype == "maxviewcount":
+    elif fortype == "maxviewcount":
         url = "https://random.org/integers/?num=55000&min=120000&max=&col=1&base=10&format=plain&rnd=new"
     else:
         url = "https://random.org/integers/?num=1&min=1&max=1000&col=1&base=10&format=plain&rnd=new"
