@@ -204,4 +204,4 @@ def get_query():
         query = get_formed_search()
     else:
         query = " "
-        return query
+    return query
