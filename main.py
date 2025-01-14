@@ -19,7 +19,7 @@ def randomize_date_range():
     return date.strftime("%Y-%m-%dT%H:%M:%SZ")  # Ensure correct RFC 3339 UTC format
 
 def main():
-    google_cloud_key = cfg.GOOGLE_CLOUD_API
+    google_cloud_key: str = cfg.GOOGLE_CLOUD_API
 
     # Initialize YouTube API client
     youtube = ytf.authenticate_youtube(google_cloud_key)

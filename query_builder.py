@@ -12,7 +12,7 @@ def get_random_int(fortype="randint"):
     if fortype == "randint":
         url = "https://random.org/integers/?num=1&min=1&max=100000&col=1&base=10&format=plain&rnd=new"
     elif fortype == "maxviewcount":
-        url = "https://random.org/integers/?num=55000&min=120000&max=&col=1&base=10&format=plain&rnd=new"
+        url = "https://random.org/integers/?num=1&min=55000&max=120000&col=1&base=10&format=plain&rnd=new"
     else:
         url = "https://random.org/integers/?num=1&min=1&max=1000&col=1&base=10&format=plain&rnd=new"
 
@@ -21,7 +21,7 @@ def get_random_int(fortype="randint"):
         random_number = int(response.text)
         return random_number
     else:
-        logging.error(f"Error. Response code: {response.status_code} -- Falling back to blank query ")
+        logging.error(f"Error. |Unable to get_random_int| Response code: {response.status_code} -- Falling back to default value")
         return 90000
 
 
@@ -33,7 +33,7 @@ def get_random_sent():
     if response.status_code == 200:
         return response.text
     else:
-        logging.error(f"Error. Response code: {response.status_code} -- Falling back to blank query ")
+        logging.error(f"Error. |Unable to get_random_sent| Response code: {response.status_code} -- Falling back to blank query ")
         empty_query = ""
         return empty_query
 
